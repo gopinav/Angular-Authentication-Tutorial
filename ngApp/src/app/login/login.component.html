@@ -9,16 +9,16 @@
           <h3 class="mb-0">Login</h3>
         </div>
         <div class="card-body">
-          <form class="form" role="form" autocomplete="off" id="formLogin">
+          <form class="form">
             <div class="form-group">
               <label for="uname1">Username</label>
-              <input type="text" class="form-control rounded-0" name="uname1" id="uname1" required="">
+              <input type="text" class="form-control rounded-0" [(ngModel)]="loginUserData.email" name="email" required>
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control rounded-0" id="pwd1" required="" autocomplete="new-password">
+              <input type="password" class="form-control rounded-0" [(ngModel)]="loginUserData.password" name="password" required>
             </div>
-            <button type="button" class="btn btn-success float-right">Login</button>
+            <button type="button" (click)="loginUser()" class="btn btn-success float-right">Login</button>
           </form>
         </div>
         <!--/card-block-->
