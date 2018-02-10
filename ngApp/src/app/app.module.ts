@@ -7,10 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthService } from './auth.service';
 import { EventsComponent } from './events/events.component';
-import { SpecialComponent } from './special-/special-.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
+import { AuthService } from './auth.service';
+import { EventService } from './event.service';
 
 
 @NgModule({
@@ -19,7 +19,6 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
     LoginComponent,
     RegisterComponent,
     EventsComponent,
-    SpecialComponent,
     SpecialEventsComponent
   ],
   imports: [
@@ -28,7 +27,7 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

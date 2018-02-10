@@ -55,7 +55,7 @@ router.get('/events', (req,res) => {
   res.json(events)
 })
 
-router.get('/events/special', (req,res) => {
+router.get('/special', (req,res) => {
   let specialEvents = [
     {
       "_id": "1",
