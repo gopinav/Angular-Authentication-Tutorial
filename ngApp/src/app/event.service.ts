@@ -10,10 +10,10 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   getEvents() {
-    return this.http.get(this._eventsUrl)
+    return this.http.get<any>(this._eventsUrl)
   }
 
   getSpecialEvents() {
-    return this.http.get(this._specialEventsUrl)
+    return this.http.get<any>(this._specialEventsUrl)
   }
 }

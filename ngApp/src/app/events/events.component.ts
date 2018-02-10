@@ -8,12 +8,13 @@ import { EventService } from '../event.service';
 })
 export class EventsComponent implements OnInit {
 
+  events = []
   constructor(private _eventService: EventService) { }
 
   ngOnInit() {
     this._eventService.getEvents()
       .subscribe(
-        res => console.log(res),
+        res => this.events = res,
         err => console.log(err)
       )
   }
