@@ -122,7 +122,9 @@ router.post('/register', (req, res) => {
     if (err) {
       console.log(err)      
     } else {
-      res.status(200).send('Successfully registered!')
+      let payload = {subject: registeredUser._id}
+      let token = jwt.sign(payload, 'secretKey')
+      res.status(200).send({token})
     }
   })
 })
@@ -141,7 +143,6 @@ router.post('/login', (req, res) => {
       } else {
         let payload = {subject: user._id}
         let token = jwt.sign(payload, 'secretKey')
-        console.log(token)
         res.status(200).send({token})
       }
     }
