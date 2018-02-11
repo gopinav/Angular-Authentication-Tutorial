@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
   loginUser () {
     this._auth.loginUser(this.loginUserData)
     .subscribe(
-      res => console.log(res),
+      res => {
+        console.log(res)
+        localStorage.setItem('token', res.token)
+      },
       err => console.log(err)
     ) 
   }

@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
-
+const jwt = require('jsonwebtoken')
 const db = "mongodb://testuser:testpw@ds123136.mlab.com:23136/eventsdb";
 // mongoose.Promise = global.Promise;
+
 mongoose.connect(db, function(err){
     if(err){
         console.error('Error! ' + err)
@@ -12,6 +13,23 @@ mongoose.connect(db, function(err){
       console.log('Connected to mongodb')      
     }
 });
+
+function verifyToken(req, res, next) {
+  console.log(JSON.stringify(req.headers))
+  if(!req.headers.authorization) {
+    return res.status(401).send('Unauthorized request')
+  }
+  let token = req.headers.authorization.split(' ')[1]
+  if(token === 'null') {
+    return res.status(401).send('Unauthorized request')    
+  }
+  let payload = jwt.verify(token, 'secretKey')
+  if(!payload) {
+    return res.status(401).send('Unauthorized request')    
+  }
+  req.userId = payload.subject
+  next()
+}
 
 router.get('/events', (req,res) => {
   let events = [
@@ -55,7 +73,7 @@ router.get('/events', (req,res) => {
   res.json(events)
 })
 
-router.get('/special', (req,res) => {
+router.get('/special', verifyToken, (req, res) => {
   let specialEvents = [
     {
       "_id": "1",
@@ -121,7 +139,10 @@ router.post('/login', (req, res) => {
       if ( user.password !== userData.password) {
         res.status(401).send('Invalid Password')
       } else {
-        res.status(200).send('Logged in succesfully')
+        let payload = {subject: user._id}
+        let token = jwt.sign(payload, 'secretKey')
+        console.log(token)
+        res.status(200).send({token})
       }
     }
   })

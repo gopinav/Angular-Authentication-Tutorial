@@ -10,10 +10,15 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   registerUser(user) {
-    return this.http.post(this._registerUrl, user, {responseType: 'text'})
+    return this.http.post<any>(this._registerUrl, user)
   }
 
   loginUser(user) {
-    return this.http.post(this._loginUrl, user, {responseType: 'text'})
+    return this.http.post<any>(this._loginUrl, user)
   }
+
+  getToken() {
+    return localStorage.getItem('token')
+  }
+
 }
