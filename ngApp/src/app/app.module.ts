@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +29,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService, EventService, 
+  providers: [AuthService, AuthGuard, EventService, 
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -20,13 +20,7 @@ export class SpecialEventsComponent implements OnInit {
     this._eventService.getSpecialEvents()
       .subscribe(
         res => this.specialEvents = res,
-        err => {
-          if( err instanceof HttpErrorResponse ) {
-            if (err.status === 401) {
-              this._router.navigate(['/login'])
-            }
-          }
-        }
+        err => console.log(err)
       )
   }
 
