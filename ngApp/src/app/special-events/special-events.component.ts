@@ -11,7 +11,7 @@ import { Router } from '@angular/router'
 export class SpecialEventsComponent implements OnInit {
   
   specialEvents = []
-
+  validate:Boolean = false
   constructor(private _eventService: EventService,
               private _router: Router) { }
 
@@ -19,7 +19,10 @@ export class SpecialEventsComponent implements OnInit {
   ngOnInit() {
     this._eventService.getSpecialEvents()
       .subscribe(
-        res => this.specialEvents = res,
+        (res) => {
+          this.specialEvents = res
+          this.validate = true;
+        },
         err => {
           if( err instanceof HttpErrorResponse ) {
             if (err.status === 401) {
